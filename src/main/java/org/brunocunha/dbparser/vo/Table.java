@@ -1,4 +1,4 @@
-package org.bruno.dbparser.vo;
+package org.brunocunha.dbparser.vo;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -4,8 +4,8 @@ import java.util.Collection;
 
 import static junit.framework.Assert.*;
 
-import org.bruno.dbparser.GetDefaultTables;
-import org.bruno.dbparser.vo.Table;
+import org.brunocunha.dbparser.GetDefaultTables;
+import org.brunocunha.dbparser.vo.Table;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package org.bruno.dbparser.vo;
+package org.brunocunha.dbparser.vo;
 
 public class DatabaseTrigger {
 private String type;

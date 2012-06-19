@@ -1,13 +1,13 @@
-package org.bruno.dbparser;
+package org.brunocunha.dbparser;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.bruno.dbparser.vo.Field;
-import org.bruno.dbparser.vo.Index;
-import org.bruno.dbparser.vo.Table;
+import org.brunocunha.dbparser.vo.Field;
+import org.brunocunha.dbparser.vo.Index;
+import org.brunocunha.dbparser.vo.Table;
 
 import com.googlecode.inutils4j.MyStringUtils;
 
