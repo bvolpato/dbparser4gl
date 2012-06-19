@@ -11,6 +11,11 @@ import org.brunocunha.dbparser.vo.Table;
 
 import com.googlecode.inutils4j.MyStringUtils;
 
+/**
+ * Class that parses OpenEdge Definitions File (DF) into manageable objects.
+ * @author Bruno Candido Volpato da Cunha
+ *
+ */
 public class DatabaseParser {
 
 	private Collection<Table> tables;

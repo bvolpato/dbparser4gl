@@ -3,11 +3,15 @@ package org.brunocunha.dbparser;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import org.brunocunha.dbparser.vo.Field;
 import org.brunocunha.dbparser.vo.Table;
 
+/**
+ * Parses all Definition Files of an specified directory, returning always a Collection of Tables.
+ * @author Bruno Candido Volpato da Cunha
+ *
+ */
 public class GetDefaultTables {
 
 	public static boolean IS_VERBOSE = true;

@@ -10,6 +10,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Default tests.
+ * @author Bruno Candido Volpato da Cunha
+ *
+ */
 public class DatabaseTest {
 
 	private Collection<Table> tables;
@@ -24,11 +29,17 @@ public class DatabaseTest {
 		this.tables = null;
 	}
 
+	/**
+	 * Validates if the setUp() created successfully the table collection
+	 */
 	@Test
 	public void testSize() {
 		assertTrue(tables.size() > 0);
 	}
 
+	/**
+	 * Validates if the setUp() loaded successfully a table that always exists in the default DF directory
+	 */
 	@Test
 	public void testExistencia() {
 		Table tabela = null;
