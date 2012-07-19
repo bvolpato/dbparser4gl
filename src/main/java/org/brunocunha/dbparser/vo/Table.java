@@ -1,7 +1,7 @@
 package org.brunocunha.dbparser.vo;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 
 public class Table {
@@ -11,9 +11,9 @@ private String label;
 private String dump;
 private String description;
 private String banco;
-private Collection<DatabaseTrigger> triggers;
-private Collection<Field> fields;
-private Collection<Index> indexes;
+private List<DatabaseTrigger> triggers;
+private List<Field> fields;
+private List<Index> indexes;
 
 public Table() {
 	this.triggers = new ArrayList<DatabaseTrigger>();
@@ -59,22 +59,22 @@ public String getDump() {
 public void setDump(String dump) {
 	this.dump = dump;
 }
-public Collection<DatabaseTrigger> getTriggers() {
+public List<DatabaseTrigger> getTriggers() {
 	return triggers;
 }
-public void setTriggers(Collection<DatabaseTrigger> triggers) {
+public void setTriggers(List<DatabaseTrigger> triggers) {
 	this.triggers = triggers;
 }
-public Collection<Field> getFields() {
+public List<Field> getFields() {
 	return fields;
 }
-public void setFields(Collection<Field> fields) {
+public void setFields(List<Field> fields) {
 	this.fields = fields;
 }
-public Collection<Index> getIndexes() {
+public List<Index> getIndexes() {
 	return indexes;
 }
-public void setIndexes(Collection<Index> indexes) {
+public void setIndexes(List<Index> indexes) {
 	this.indexes = indexes;
 }
 	

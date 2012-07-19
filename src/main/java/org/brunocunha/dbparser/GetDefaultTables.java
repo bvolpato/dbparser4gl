@@ -3,6 +3,7 @@ package org.brunocunha.dbparser;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.brunocunha.dbparser.vo.Field;
 import org.brunocunha.dbparser.vo.Table;
@@ -16,22 +17,25 @@ public class GetDefaultTables {
 
 	public static boolean IS_VERBOSE = true;
 
-	public static Collection<Table> listTables() {
-		return listTables(new File("\\\\vigoreli\\ExpDtsul4\\@byyou\\11.5.2\\database\\progress\\ems2\\dffiles"));
+	public static List<Table> listTables() {
+		return listTables(new File[] { 
+				new File("\\\\vigoreli\\ExpDtsul4\\@byyou\\11.5.2\\database\\progress\\ems2\\dffiles") 
+				
+				});
 	}
 
-	public static Collection<Table> listTables(String f) {
+	public static List<Table> listTables(String f) {
 		return listTables(new File(f));
 	}
 
-	public static Collection<Table> listTables(File f) {
+	public static List<Table> listTables(File f) {
 		DatabaseParser parser = new DatabaseParser();
 		recursiveParser(parser, f);
 		return parser.getTables();
 	}
 
-	public static Collection<Table> listTables(File[] a) {
-		Collection<Table> tableList = new ArrayList<Table>();
+	public static List<Table> listTables(File[] a) {
+		List<Table> tableList = new ArrayList<Table>();
 
 		for (File f : a) {
 			DatabaseParser parser = new DatabaseParser();

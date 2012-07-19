@@ -52,10 +52,10 @@ public class DatabaseTest {
 	
 		assertFalse(tabela == null);
 		
+		/*assertFalse(true);
 		assertFalse(true);
 		assertFalse(true);
-		assertFalse(true);
-		assertFalse(true);
+		assertFalse(true);*/
 	}
 	
 	

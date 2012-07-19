@@ -18,7 +18,7 @@ import com.googlecode.inutils4j.MyStringUtils;
  */
 public class DatabaseParser {
 
-	private Collection<Table> tables;
+	private List<Table> tables;
 
 	public DatabaseParser() {
 		this.tables = new ArrayList<Table>();
@@ -190,11 +190,11 @@ public class DatabaseParser {
 		return index;
 	}
 
-	public Collection<Table> getTables() {
+	public List<Table> getTables() {
 		return tables;
 	}
 
-	public void setTables(Collection<Table> tables) {
+	public void setTables(List<Table> tables) {
 		this.tables = tables;
 	}
 
