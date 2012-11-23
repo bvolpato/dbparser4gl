@@ -19,7 +19,7 @@ public class GetDefaultTables {
 
 	public static List<Table> listTables() {
 		return listTables(new File[] { 
-				new File("\\\\vigoreli\\ExpDtsul4\\@byyou\\11.5.2\\database\\progress\\ems2\\dffiles") 
+				new File("\\\\vigoreli.jv01.local\\ExpDtsul4\\@byyou\\11.5.2\\database\\progress\\ems2\\dffiles") 
 				
 				});
 	}

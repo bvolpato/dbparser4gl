@@ -27,6 +27,10 @@ public class Field {
 		this.type = type;
 	}
 	public String getDescription() {
+		if (description == null) {
+			description = "";
+		}
+		
 		return description;
 	}
 	public void setDescription(String description) {
@@ -39,6 +43,10 @@ public class Field {
 		this.format = format;
 	}
 	public String getInitial() {
+		if (initial == null) {
+			initial = "";
+		}
+		
 		return initial;
 	}
 	public void setInitial(String initial) {

@@ -4,7 +4,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
+import org.brunocunha.dbparser.vo.Database;
+import org.brunocunha.dbparser.vo.DatabaseTrigger;
 import org.brunocunha.dbparser.vo.Field;
 import org.brunocunha.dbparser.vo.Index;
 import org.brunocunha.dbparser.vo.Table;
@@ -38,6 +42,10 @@ public class DatabaseParser {
 		return banco;
 	}
 
+	public void parseDefinitions(File df) {
+		parseDefinitions(df, df.getName().split("\\.")[0]);
+	}
+	
 	public void parseDefinitions(File df, String banco) {
 		String readDf = MyStringUtils.getContent(df).trim();
 		readDf = readDf.replace("\r\n\r\nADD", " [EOL] \r\n\r\nADD");
@@ -112,6 +120,13 @@ public class DatabaseParser {
 					if (keyField.equals("AREA")) {
 						table.setArea(splitValues[1]);
 					}
+					if (keyField.equals("TABLE-TRIGGER")) {
+						DatabaseTrigger trigger = new DatabaseTrigger();
+						trigger.setType(splitValues[1]);
+						trigger.setProcedure(splitValues[3]);
+						
+						table.getTriggers().add(trigger);
+					}
 				} catch (Exception e) {
 				}
 			} else {
@@ -132,7 +147,8 @@ public class DatabaseParser {
 		for (String line : statement.split("\r\n")) {
 			line = line.trim();
 
-			String keyField = line.split(" ")[0];
+			String[] keys = line.split(" ");
+			String keyField = keys[0];
 			String[] splitValues = line.split("\"");
 
 			if (keyField.equals("FORMAT") && splitValues.length > 1) {
@@ -147,8 +163,11 @@ public class DatabaseParser {
 			if (keyField.equals("COLUMN-LABEL") && splitValues.length > 1) {
 				field.setColumnLabel(splitValues[1]);
 			}
-			if (keyField.equals("POSITION") && splitValues.length > 1) {
-				field.setPosition(Integer.valueOf(splitValues[1]));
+			if (keyField.equals("POSITION")) {
+				field.setPosition(Integer.valueOf(keys[1]));
+			}
+			if (keyField.equals("ORDER")) {
+				field.setOrder(Integer.valueOf(keys[1]));
 			}
 			if (keyField.equals("MANDATORY")) {
 				field.setMandatory(true);
@@ -198,4 +217,23 @@ public class DatabaseParser {
 		this.tables = tables;
 	}
 
+	
+	public static Collection<Database> splitTablesIntoDatabases(List<Table> tablesList) {
+		Map<String, Database> map = new TreeMap<String, Database>();
+		
+		for (Table tabela : tablesList) {
+			Database tableBase;
+			
+			if (map.containsKey(tabela.getBanco())) {
+				tableBase = map.get(tabela.getBanco());
+			} else {
+				tableBase = new Database();
+				tableBase.setName(tabela.getBanco());
+				map.put(tabela.getBanco(), tableBase);
+			}
+			tableBase.getTables().add(tabela);
+		}
+		
+		return map.values();
+	}
 }

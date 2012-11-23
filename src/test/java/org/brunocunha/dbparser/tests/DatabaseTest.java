@@ -1,8 +1,9 @@
 package org.brunocunha.dbparser.tests;
 
-import java.util.Collection;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
 
-import static junit.framework.Assert.*;
+import java.util.Collection;
 
 import org.brunocunha.dbparser.GetDefaultTables;
 import org.brunocunha.dbparser.vo.Table;
