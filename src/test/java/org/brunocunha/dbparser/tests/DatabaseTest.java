@@ -7,8 +7,8 @@ import java.util.Collection;
 
 import org.brunocunha.dbparser.GetDefaultTables;
 import org.brunocunha.dbparser.vo.Table;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -18,16 +18,16 @@ import org.junit.Test;
  */
 public class DatabaseTest {
 
-	private Collection<Table> tables;
+	private static Collection<Table> tables;
 	
-	@Before
-	public void setUp() throws Exception {
-		this.tables = GetDefaultTables.listTables();
+	@BeforeClass
+	public static void setUp() throws Exception {
+		tables = GetDefaultTables.listTables();
 	}
 
-	@After
-	public void tearDown() throws Exception {
-		this.tables = null;
+	@AfterClass
+	public static void tearDown() throws Exception {
+		tables = null;
 	}
 
 	/**

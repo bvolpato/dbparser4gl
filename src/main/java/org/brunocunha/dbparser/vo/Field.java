@@ -13,7 +13,7 @@ public class Field {
 	private String columnLabel;
 	private String help;
 	private int order;
-	private boolean isMandatory;
+	private boolean mandatory;
 	public String getName() {
 		return name;
 	}
@@ -89,10 +89,10 @@ public class Field {
 		this.order = order;
 	}
 	public boolean isMandatory() {
-		return isMandatory;
+		return mandatory;
 	}
-	public void setMandatory(boolean isMandatory) {
-		this.isMandatory = isMandatory;
+	public void setMandatory(boolean mandatory) {
+		this.mandatory = mandatory;
 	}
 	
 	

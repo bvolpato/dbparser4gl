@@ -4,7 +4,7 @@
 	<groupId>org.brunocunha</groupId>
 	<artifactId>dbparser</artifactId>
 	<packaging>jar</packaging>
-	<name>dbparser</name>
+	<name>Progress Database Parser</name>
 	<description>Progress Database Parser</description>
 	<version>0.1</version>
 	<url></url>

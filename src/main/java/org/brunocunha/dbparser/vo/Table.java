@@ -116,6 +116,35 @@ public class Table {
 		return this.getTrigger("Write");
 	}
 
+	public String getCreateTriggerProcedure() {
+		DatabaseTrigger trigger = this.getCreateTrigger();
+		
+		if (trigger == null || trigger.getProcedure().equals("")) {
+			return "";
+		} else {
+			return trigger.getProcedure();
+		}
+	}
+
+	public String getWriteTriggerProcedure() {
+		DatabaseTrigger trigger = this.getWriteTrigger();
+		
+		if (trigger == null || trigger.getProcedure().equals("")) {
+			return "";
+		} else {
+			return trigger.getProcedure();
+		}
+	}
+	public String getDeleteTriggerProcedure() {
+		DatabaseTrigger trigger = this.getDeleteTrigger();
+		
+		if (trigger == null || trigger.getProcedure().equals("")) {
+			return "";
+		} else {
+			return trigger.getProcedure();
+		}
+	}
+
 	public DatabaseTrigger getTrigger(String name) {
 		for (DatabaseTrigger trigger : this.getTriggers()) {
 			if (trigger.getType().equals(name)) {
