@@ -6,7 +6,7 @@
 	<packaging>jar</packaging>
 	<name>Progress Database Parser</name>
 	<description>Progress Database Parser</description>
-	<version>0.1</version>
+	<version>0.1-SNAPSHOT</version>
 	<url></url>
 	<repositories>
 		<repository>
@@ -19,7 +19,7 @@
 
 
 	<build>
-		<!--sourceDirectory>src/java</sourceDirectory-->
+		<!--sourceDirectory>src/java</sourceDirectory -->
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -51,16 +51,21 @@
 			<version>4.10</version>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>com.googlecode</groupId>
 			<artifactId>inutils4j</artifactId>
-			<version>0.1</version>
+			<version>0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.16</version>
 		</dependency>
 
 
 	</dependencies>
-
-
 
 
 </project>

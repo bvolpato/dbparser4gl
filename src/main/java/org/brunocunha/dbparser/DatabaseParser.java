@@ -1,6 +1,7 @@
 package org.brunocunha.dbparser;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -17,8 +18,9 @@ import com.googlecode.inutils4j.MyStringUtils;
 
 /**
  * Class that parses OpenEdge Definitions File (DF) into manageable objects.
+ * 
  * @author Bruno Candido Volpato da Cunha
- *
+ * 
  */
 public class DatabaseParser {
 
@@ -29,66 +31,73 @@ public class DatabaseParser {
 	}
 
 	private String converteBanco(String banco) {
-		if (banco.startsWith("ems2")) {
-			banco = banco.replace("ems2", "mg");
+		String convertido = banco;
+
+		if (convertido.startsWith("ems2")) {
+			convertido = convertido.replace("ems2", "mg");
 		}
-		if (banco.startsWith("mov2")) {
-			banco = banco.replace("mov2", "mov");
+		if (convertido.startsWith("mov2")) {
+			convertido = convertido.replace("mov2", "mov");
 		}
-		if (banco.startsWith("wmov2")) {
-			banco = banco.replace("wmov2", "wmov");
+		if (convertido.startsWith("wmov2")) {
+			convertido = convertido.replace("wmov2", "wmov");
 		}
 
-		return banco;
+		return convertido;
 	}
 
 	public void parseDefinitions(File df) {
 		parseDefinitions(df, df.getName().split("\\.")[0]);
 	}
-	
+
 	public void parseDefinitions(File df, String banco) {
-		String readDf = MyStringUtils.getContent(df).trim();
-		readDf = readDf.replace("\r\n\r\nADD", " [EOL] \r\n\r\nADD");
+		try {
+			String readDf = MyStringUtils.getContent(df).trim();
+			readDf = readDf.replace("\r\n\r\nADD", " [EOL] \r\n\r\nADD");
 
-		String[] statements = readDf.split("\\[EOL\\]");
+			String[] statements = readDf.split("\\[EOL\\]");
 
-		for (int x = 0; x < statements.length; x++) {
-			String parse = statements[x].trim();
-			parse = parse.replace("  ", " ").trim().replace(" ", " ").trim();
+			for (int x = 0; x < statements.length; x++) {
+				String parse = statements[x].trim();
+				parse = parse.replace("  ", " ").trim().replace(" ", " ").trim();
 
-			if (parse.startsWith("ADD")) {
+				if (parse.startsWith("ADD")) {
 
-				if (parse.startsWith("ADD TABLE")) {
-					Table table = parseTable(parse);
-					table.setBanco(converteBanco(banco));
-					tables.add(table);
+					if (parse.startsWith("ADD TABLE")) {
+						Table table = parseTable(parse);
+						table.setBanco(converteBanco(banco));
+						tables.add(table);
 
-					String childrenStatement;
-					while (!(childrenStatement = statements[++x]).contains("ADD TABLE")) {
+						String childrenStatement;
+						while (!(childrenStatement = statements[++x]).contains("ADD TABLE")) {
 
-						if (childrenStatement.contains("cpstream="))
-							return;
+							if (childrenStatement.contains("cpstream=")) {
+								return;
+							}
 
-						if (childrenStatement.contains("ADD FIELD")) {
-							String fieldStatement = childrenStatement;
+							if (childrenStatement.contains("ADD FIELD")) {
+								String fieldStatement = childrenStatement;
 
-							Field field = parseField(fieldStatement);
-							table.addField(field);
+								Field field = parseField(fieldStatement);
+								table.addField(field);
 
-						} else if (childrenStatement.contains("ADD INDEX")) {
-							String indexStatement = childrenStatement;
+							} else if (childrenStatement.contains("ADD INDEX")) {
+								String indexStatement = childrenStatement;
 
-							Index index = parseIndex(indexStatement, table);
-							table.addIndex(index);
+								Index index = parseIndex(indexStatement, table);
+								table.addIndex(index);
 
+							}
 						}
+
+						x--;
+
 					}
 
-					x--;
-
 				}
-
 			}
+		} catch (Exception exp) {
+			exp.printStackTrace();
 		}
 
 	}
@@ -124,12 +133,11 @@ public class DatabaseParser {
 						DatabaseTrigger trigger = new DatabaseTrigger();
 						trigger.setType(splitValues[1]);
 						trigger.setProcedure(splitValues[3]);
-						
+
 						table.getTriggers().add(trigger);
 					}
 				} catch (Exception e) {
 				}
-			} else {
 			}
 		}
 
@@ -137,14 +145,14 @@ public class DatabaseParser {
 	}
 
 	public Field parseField(String statement) {
-		statement = statement.trim();
+		String statementTrim = statement.trim();
 
-		String[] statementSplit = statement.split("\"");
+		String[] statementSplit = statementTrim.split("\"");
 		Field field = new Field();
 		field.setName(statementSplit[1]);
-		field.setType(statement.split(" ")[6]);
+		field.setType(statementTrim.split(" ")[6]);
 
-		for (String line : statement.split("\r\n")) {
+		for (String line : statementTrim.split("\r\n")) {
 			line = line.trim();
 
 			String[] keys = line.split(" ");
@@ -217,13 +225,12 @@ public class DatabaseParser {
 		this.tables = tables;
 	}
 
-	
 	public static Collection<Database> splitTablesIntoDatabases(List<Table> tablesList) {
 		Map<String, Database> map = new TreeMap<String, Database>();
-		
+
 		for (Table tabela : tablesList) {
 			Database tableBase;
-			
+
 			if (map.containsKey(tabela.getBanco())) {
 				tableBase = map.get(tabela.getBanco());
 			} else {
@@ -233,7 +240,7 @@ public class DatabaseParser {
 			}
 			tableBase.getTables().add(tabela);
 		}
-		
+
 		return map.values();
 	}
 }

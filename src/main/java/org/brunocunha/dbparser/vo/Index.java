@@ -4,52 +4,51 @@ import java.util.Collection;
 
 public class Index {
 
-	private String name;
-	private String area;
-	private boolean unique;
-	private boolean primary;
-	private Collection<Field> fields;
+    private String name;
+    private String area;
+    private boolean unique;
+    private boolean primary;
+    private Collection<Field> fields;
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getArea() {
-		return area;
-	}
+    public String getArea() {
+        return area;
+    }
 
-	public void setArea(String area) {
-		this.area = area;
-	}
+    public void setArea(String area) {
+        this.area = area;
+    }
 
-	public boolean isUnique() {
-		return unique;
-	}
+    public boolean isUnique() {
+        return unique;
+    }
 
-	public void setUnique(boolean unique) {
-		this.unique = unique;
-	}
+    public void setUnique(boolean unique) {
+        this.unique = unique;
+    }
 
-	public boolean isPrimary() {
-		return primary;
-	}
+    public boolean isPrimary() {
+        return primary;
+    }
 
-	public void setPrimary(boolean primary) {
-		this.primary = primary;
-	}
+    public void setPrimary(boolean primary) {
+        this.primary = primary;
+    }
 
-	public Collection<Field> getFields() {
-		return fields;
-	}
+    public Collection<Field> getFields() {
+        return fields;
+    }
 
-	public void setFields(Collection<Field> fields) {
-		this.fields = fields;
-	}
-
+    public void setFields(Collection<Field> fields) {
+        this.fields = fields;
+    }
 }
 
 /*

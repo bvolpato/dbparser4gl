@@ -1,60 +1,59 @@
 package org.brunocunha.dbparser.vo;
 
 public class Sequence {
-	private String name;
-	private int initial;
-	private int increment;
-	private boolean cycleOnLimit;
-	private long minVal;
-	private long maxVal;
 
-	
-	public String getName() {
-		return name;
-	}
+    private String name;
+    private int initial;
+    private int increment;
+    private boolean cycleOnLimit;
+    private long minVal;
+    private long maxVal;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public int getInitial() {
-		return initial;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setInitial(int initial) {
-		this.initial = initial;
-	}
+    public int getInitial() {
+        return initial;
+    }
 
-	public int getIncrement() {
-		return increment;
-	}
+    public void setInitial(int initial) {
+        this.initial = initial;
+    }
 
-	public void setIncrement(int increment) {
-		this.increment = increment;
-	}
+    public int getIncrement() {
+        return increment;
+    }
 
-	public boolean isCycleOnLimit() {
-		return cycleOnLimit;
-	}
+    public void setIncrement(int increment) {
+        this.increment = increment;
+    }
 
-	public void setCycleOnLimit(boolean cycleOnLimit) {
-		this.cycleOnLimit = cycleOnLimit;
-	}
+    public boolean isCycleOnLimit() {
+        return cycleOnLimit;
+    }
 
-	public long getMinVal() {
-		return minVal;
-	}
+    public void setCycleOnLimit(boolean cycleOnLimit) {
+        this.cycleOnLimit = cycleOnLimit;
+    }
 
-	public void setMinVal(long minVal) {
-		this.minVal = minVal;
-	}
+    public long getMinVal() {
+        return minVal;
+    }
 
-	public long getMaxVal() {
-		return maxVal;
-	}
+    public void setMinVal(long minVal) {
+        this.minVal = minVal;
+    }
 
-	public void setMaxVal(long maxVal) {
-		this.maxVal = maxVal;
-	}
+    public long getMaxVal() {
+        return maxVal;
+    }
 
+    public void setMaxVal(long maxVal) {
+        this.maxVal = maxVal;
+    }
 }

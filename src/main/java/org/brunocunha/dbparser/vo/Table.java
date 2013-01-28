@@ -4,155 +4,166 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Table {
-	private String name;
-	private String area;
-	private String label;
-	private String dump;
-	private String description;
-	private String banco;
-	private List<DatabaseTrigger> triggers;
-	private List<Field> fields;
-	private List<Index> indexes;
 
-	public Table() {
-		this.triggers = new ArrayList<DatabaseTrigger>();
-		this.fields = new ArrayList<Field>();
-		this.indexes = new ArrayList<Index>();
-	}
+    private String name;
+    private String area;
+    private String label;
+    private String dump;
+    private String description;
+    private String banco;
+    private List<DatabaseTrigger> triggers;
+    private List<Field> fields;
+    private List<Index> indexes;
 
-	public String getBanco() {
-		return banco;
-	}
+    public Table() {
+        this.triggers = new ArrayList<DatabaseTrigger>();
+        this.fields = new ArrayList<Field>();
+        this.indexes = new ArrayList<Index>();
+    }
 
-	public void setBanco(String banco) {
-		this.banco = banco;
-	}
+    public String getBanco() {
+        return banco;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setBanco(String banco) {
+        this.banco = banco;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getArea() {
-		return area;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setArea(String area) {
-		this.area = area;
-	}
+    public String getArea() {
+        return area;
+    }
 
-	public String getLabel() {
-		return label;
-	}
+    public void setArea(String area) {
+        this.area = area;
+    }
 
-	public void setLabel(String label) {
-		this.label = label;
-	}
+    public String getLabel() {
+        return label;
+    }
 
-	public String getDump() {
-		return dump;
-	}
+    public void setLabel(String label) {
+        this.label = label;
+    }
 
-	public void setDump(String dump) {
-		this.dump = dump;
-	}
+    public String getDump() {
+        return dump;
+    }
 
-	public List<DatabaseTrigger> getTriggers() {
-		return triggers;
-	}
+    public void setDump(String dump) {
+        this.dump = dump;
+    }
 
-	public void setTriggers(List<DatabaseTrigger> triggers) {
-		this.triggers = triggers;
-	}
+    public List<DatabaseTrigger> getTriggers() {
+        return triggers;
+    }
 
-	public List<Field> getFields() {
-		return fields;
-	}
+    public void setTriggers(List<DatabaseTrigger> triggers) {
+        this.triggers = triggers;
+    }
 
-	public void setFields(List<Field> fields) {
-		this.fields = fields;
-	}
+    public List<Field> getFields() {
+        return fields;
+    }
 
-	public List<Index> getIndexes() {
-		return indexes;
-	}
+    public void setFields(List<Field> fields) {
+        this.fields = fields;
+    }
 
-	public void setIndexes(List<Index> indexes) {
-		this.indexes = indexes;
-	}
+    public List<Index> getIndexes() {
+        return indexes;
+    }
 
-	public void addField(Field field) {
-		this.getFields().add(field);
-	}
+    public void setIndexes(List<Index> indexes) {
+        this.indexes = indexes;
+    }
 
-	public void addIndex(Index index) {
-		this.getIndexes().add(index);
-	}
+    public void addField(Field field) {
+        this.getFields().add(field);
+    }
 
-	public String getDescription() {
-		if (description == null) {
-			description = "";
-		}
+    public void addIndex(Index index) {
+        this.getIndexes().add(index);
+    }
 
-		return description;
-	}
+    public String getDescription() {
+        if (description == null) {
+            description = "";
+        }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+        return description;
+    }
 
-	public DatabaseTrigger getCreateTrigger() {
-		return this.getTrigger("Create");
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public DatabaseTrigger getDeleteTrigger() {
-		return this.getTrigger("Delete");
-	}
+    public DatabaseTrigger getCreateTrigger() {
+        return this.getTrigger("Create");
+    }
 
-	public DatabaseTrigger getWriteTrigger() {
-		return this.getTrigger("Write");
-	}
+    public DatabaseTrigger getDeleteTrigger() {
+        return this.getTrigger("Delete");
+    }
 
-	public String getCreateTriggerProcedure() {
-		DatabaseTrigger trigger = this.getCreateTrigger();
-		
-		if (trigger == null || trigger.getProcedure().equals("")) {
-			return "";
-		} else {
-			return trigger.getProcedure();
-		}
-	}
+    public DatabaseTrigger getWriteTrigger() {
+        return this.getTrigger("Write");
+    }
 
-	public String getWriteTriggerProcedure() {
-		DatabaseTrigger trigger = this.getWriteTrigger();
-		
-		if (trigger == null || trigger.getProcedure().equals("")) {
-			return "";
-		} else {
-			return trigger.getProcedure();
-		}
-	}
-	public String getDeleteTriggerProcedure() {
-		DatabaseTrigger trigger = this.getDeleteTrigger();
-		
-		if (trigger == null || trigger.getProcedure().equals("")) {
-			return "";
-		} else {
-			return trigger.getProcedure();
-		}
-	}
+    public String getCreateTriggerProcedure() {
+        DatabaseTrigger trigger = this.getCreateTrigger();
 
-	public DatabaseTrigger getTrigger(String name) {
-		for (DatabaseTrigger trigger : this.getTriggers()) {
-			if (trigger.getType().equals(name)) {
-				return trigger;
-			}
-		}
+        if (trigger == null || trigger.getProcedure().equals("")) {
+            return "";
+        } else {
+            return trigger.getProcedure();
+        }
+    }
 
-		return null;
-	}
+    public String getWriteTriggerProcedure() {
+        DatabaseTrigger trigger = this.getWriteTrigger();
 
+        if (trigger == null || trigger.getProcedure().equals("")) {
+            return "";
+        } else {
+            return trigger.getProcedure();
+        }
+    }
+
+    public String getDeleteTriggerProcedure() {
+        DatabaseTrigger trigger = this.getDeleteTrigger();
+
+        if (trigger == null || trigger.getProcedure().equals("")) {
+            return "";
+        } else {
+            return trigger.getProcedure();
+        }
+    }
+
+    public DatabaseTrigger getTrigger(String name) {
+        for (DatabaseTrigger trigger : this.getTriggers()) {
+            if (trigger.getType().equals(name)) {
+                return trigger;
+            }
+        }
+
+        return null;
+    }
+    
+    
+    public boolean containsField(String name) {
+    	for (Field field : getFields()){
+    		if (name.equalsIgnoreCase(field.getName())) {
+    			return true;
+    		}
+    	}
+    	return false;
+    }
 }
