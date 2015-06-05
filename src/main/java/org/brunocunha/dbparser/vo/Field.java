@@ -14,7 +14,11 @@ public class Field {
     private String help;
     private int order;
     private boolean mandatory;
-
+    private String validation;
+    private String validationMessage;
+    private boolean extent;
+    private int extentValue;
+    
     public String getName() {
         return name;
     }
@@ -118,4 +122,40 @@ public class Field {
     public void setMandatory(boolean mandatory) {
         this.mandatory = mandatory;
     }
+
+	public String getValidation() {
+		return validation;
+	}
+
+	public void setValidation(String validation) {
+		this.validation = validation;
+	}
+
+	public String getValidationMessage() {
+		return validationMessage;
+	}
+
+	public void setValidationMessage(String validationMessage) {
+		this.validationMessage = validationMessage;
+	}
+
+	public boolean isExtent() {
+		return extent;
+	}
+
+	public void setExtent(boolean extent) {
+		this.extent = extent;
+	}
+
+	public int getExtentValue() {
+		return extentValue;
+	}
+
+	public void setExtentValue(int extentValue) {
+		this.extentValue = extentValue;
+	}
+
+
+	
+    
 }

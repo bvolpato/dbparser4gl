@@ -6,6 +6,9 @@
 *.ear
 
 target/
+.settings/
 .classpath
 .project
 *.project
+
+dbparser.log

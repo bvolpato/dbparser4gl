@@ -1,20 +1,21 @@
 package org.brunocunha.dbparser;
 
 import java.io.File;
-import java.io.UnsupportedEncodingException;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.apache.log4j.Logger;
 import org.brunocunha.dbparser.vo.Database;
 import org.brunocunha.dbparser.vo.DatabaseTrigger;
 import org.brunocunha.dbparser.vo.Field;
 import org.brunocunha.dbparser.vo.Index;
 import org.brunocunha.dbparser.vo.Table;
 
-import com.googlecode.inutils4j.MyStringUtils;
 
 /**
  * Class that parses OpenEdge Definitions File (DF) into manageable objects.
@@ -23,6 +24,8 @@ import com.googlecode.inutils4j.MyStringUtils;
  * 
  */
 public class DatabaseParser {
+
+	private static Logger log = Logger.getLogger(DatabaseParser.class);
 
 	private List<Table> tables;
 
@@ -51,8 +54,9 @@ public class DatabaseParser {
 	}
 
 	public void parseDefinitions(File df, String banco) {
+		
 		try {
-			String readDf = MyStringUtils.getContent(df).trim();
+			String readDf = getFileContent(new FileInputStream(df)).trim();
 			readDf = readDf.replace("\r\n\r\nADD", " [EOL] \r\n\r\nADD");
 
 			String[] statements = readDf.split("\\[EOL\\]");
@@ -177,9 +181,23 @@ public class DatabaseParser {
 			if (keyField.equals("ORDER")) {
 				field.setOrder(Integer.valueOf(keys[1]));
 			}
+			if (keyField.equals("EXTENT")) {
+				field.setExtent(true);
+				field.setExtentValue(Integer.valueOf(keys[1]));
+			}
 			if (keyField.equals("MANDATORY")) {
 				field.setMandatory(true);
 			}
+			if (keyField.equals("HELP")) {
+				field.setHelp(splitValues[1]);
+			}
+			if (keyField.equals("VALEXP")) {
+				field.setValidation(splitValues[1]);
+			}
+			if (keyField.equals("VALMSG")) {
+				field.setValidationMessage(splitValues[1]);
+			}
+			
 		}
 
 		return field;
@@ -243,4 +261,50 @@ public class DatabaseParser {
 
 		return map.values();
 	}
+	
+	/**
+	 * Fast file reading
+	 * 
+	 * @param in
+	 * @return
+	 */
+	private String getFileContent(FileInputStream in) {
+		final byte[] readBuffer = new byte[8192];
+
+		StringBuffer sb = new StringBuffer();
+		try {
+			if (in.available() > 0) {
+				int bytesRead = 0;
+				while ((bytesRead = in.read(readBuffer)) != -1) {
+					sb.append(new String(readBuffer, 0, bytesRead));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				in.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return sb.toString();
+	}
+
+	
+	public void recursiveParser(File dir) {
+		if (dir.isDirectory()) {
+			for (File df : dir.listFiles()) {
+				recursiveParser(df);
+			}
+		} else {
+			if (dir.getName().endsWith(".df")) {
+				log.info("[+] Parsing " + dir.getAbsolutePath() + "...");
+				parseDefinitions(dir, dir.getName().split("\\.")[0]);
+			}
+		}
+	}
+
+	
 }

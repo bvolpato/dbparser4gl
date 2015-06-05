@@ -1,5 +1,6 @@
 package org.brunocunha.dbparser.vo;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class Index {
@@ -43,12 +44,26 @@ public class Index {
     }
 
     public Collection<Field> getFields() {
+    	if (fields == null) {
+    		fields = new ArrayList<Field>();
+    	}
         return fields;
     }
 
     public void setFields(Collection<Field> fields) {
         this.fields = fields;
     }
+    
+    
+    public boolean containsField(String name) {
+    	for (Field field : getFields()){
+    		if (name.equalsIgnoreCase(field.getName())) {
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+    
 }
 
 /*

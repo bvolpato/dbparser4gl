@@ -1,14 +1,18 @@
 package org.brunocunha.dbparser;
 
 import java.io.File;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import org.apache.log4j.Logger;
 import org.brunocunha.dbparser.vo.Field;
 import org.brunocunha.dbparser.vo.Table;
+
 
 /**
  * Parses all Definition Files of an specified directory, returning always a
@@ -17,29 +21,42 @@ import org.brunocunha.dbparser.vo.Table;
  * @author Bruno Candido Volpato da Cunha
  * 
  */
-public final class GetDefaultTables {
+public class GetDefaultTables {
+
+	private static List<Table> defaultTablesInstance;
 
 	private static Logger log = Logger.getLogger(GetDefaultTables.class);
 
 	private static final boolean IS_VERBOSE = true;
-	private static final String EMS2_DEFAULT = "\\\\vigoreli.jv01.local\\ExpDtsul4\\@byyou\\11.5.4\\database\\progress\\ems2\\dffiles";
-	private static final String EMS5_DEFAULT = "\\\\vigoreli.jv01.local\\ExpDtsul4\\@byyou\\11.5.4\\database\\progress\\ems5\\dffiles";
-	private static final String HCM_DEFAULT = "\\\\vigoreli.jv01.local\\ExpDtsul4\\@byyou\\11.5.4\\database\\progress\\hcm\\dffiles";
-	private static final String FND_DEFAULT = "\\\\vigoreli.jv01.local\\ExpDtsul4\\@byyou\\11.5.4\\database\\progress\\fnd\\dffiles";
-	private static final String GP_DEFAULT = "\\\\vigoreli.jv01.local\\ExpDtsul4\\@byyou\\11.5.4\\database\\progress\\gp\\dffiles";
+	
+	private static final String BASE_DIR = "\\\\TOUROS\\DFS";
+	private static final String EAI_DEFAULT = BASE_DIR + "\\EAI\\12.1.2";
+	private static final String EMS2_DEFAULT = BASE_DIR + "\\EMS2\\12.1.2";
+	private static final String EMS5_DEFAULT = BASE_DIR + "\\EMS5\\12.1.2";
+	private static final String FND_DEFAULT = BASE_DIR + "\\Foundation\\12.1.2";
+	private static final String GP_DEFAULT = BASE_DIR + "\\GP\\12.1.2";
+	private static final String HCM_DEFAULT = BASE_DIR + "\\HCM\\12.1.2";
+	private static final String METADADOS_DEFAULT = BASE_DIR + "\\CRM\\12.1.2";
 
 	private GetDefaultTables() {
 	}
 
 	public static List<Table> listTables() {
-		try {
-			return listTables(new File[] { new File(EMS2_DEFAULT), new File(EMS5_DEFAULT), new File(HCM_DEFAULT),
-					new File(FND_DEFAULT), new File(GP_DEFAULT) });
-		} catch (Exception e) {
-			e.printStackTrace();
+		synchronized(GetDefaultTables.class) {
+			if (defaultTablesInstance == null) {
+				defaultTablesInstance = listTables(new File[] { 
+						new File(EAI_DEFAULT), 
+						new File(EMS2_DEFAULT),
+						new File(EMS5_DEFAULT), 
+						new File(FND_DEFAULT), 
+						new File(HCM_DEFAULT), 
+						new File(GP_DEFAULT),
+						new File(METADADOS_DEFAULT) }
+				);
+			}
 		}
-
-		return null;
+		
+		return defaultTablesInstance;
 	}
 
 	public static List<Table> listTables(String f) {
@@ -55,7 +72,7 @@ public final class GetDefaultTables {
 	public static List<Table> listTables(File f) {
 		try {
 			DatabaseParser parser = new DatabaseParser();
-			recursiveParser(parser, f);
+			parser.recursiveParser(f);
 			return parser.getTables();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -65,30 +82,35 @@ public final class GetDefaultTables {
 	}
 
 	public static List<Table> listTables(File[] a) {
+		return listTables(a, true);
+	}
+	
+	public static List<Table> listTables(File[] a, boolean multiThread) {
 		List<Table> tableList = new ArrayList<Table>();
 
+		ExecutorService service = Executors.newFixedThreadPool(multiThread ? 50 : 1);
+		List<Future> tasks = new ArrayList<Future>();
+		
 		for (File f : a) {
-			DatabaseParser parser = new DatabaseParser();
-			recursiveParser(parser, f);
-			tableList.addAll(parser.getTables());
+			DatabaseParserThread parserThread =  new DatabaseParserThread(f, tableList);
+			tasks.add(service.submit(parserThread));
 		}
 
+		service.shutdown();
+		
+		for (Future task : tasks) {
+			try {
+				task.get();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		return tableList;
 	}
 
-	public static void recursiveParser(DatabaseParser parser, File dir) {
-		if (dir.isDirectory()) {
-			for (File df : dir.listFiles()) {
-				recursiveParser(parser, df);
-			}
-		} else {
-			if (dir.getName().endsWith(".df")) {
-				log.warn("[+] Parsing " + dir.getAbsolutePath() + "...");
-				parser.parseDefinitions(dir, dir.getName().split("\\.")[0]);
-			}
-		}
-
-	}
 
 	public static Table tableForName(Collection<Table> tables, String name) {
 		for (Table t : tables) {
@@ -108,6 +130,19 @@ public final class GetDefaultTables {
 		}
 
 		return null;
+	}
+
+	public static Field fieldForTableField(Collection<Table> tables, String expression) {
+		if (!expression.contains(".") || expression.split("\\.").length == 1) {
+			return null;
+		}
+
+		Table table = tableForName(tables, expression.split("\\.")[0]);
+		if (table == null) {
+			return null;
+		}
+
+		return table.findField(expression.split("\\.")[1]);
 	}
 
 	public static boolean tableHasField(Table table, String field) {
@@ -147,4 +182,21 @@ public final class GetDefaultTables {
 
 		return false;
 	}
+}
+
+class DatabaseParserThread extends Thread {
+	private File file;
+	private List<Table> tableList;
+	public DatabaseParserThread(File file, List<Table> tableList) {
+		super();
+		this.file = file;
+		this.tableList = tableList;
+	}
+	
+	public void run() {
+		DatabaseParser parser = new DatabaseParser();
+		parser.recursiveParser(file);
+		tableList.addAll(parser.getTables());
+	}
+	
 }

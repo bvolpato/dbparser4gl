@@ -46,7 +46,7 @@ public class DatabaseTest {
     @Test
     public void testExistencia() {
         Table tabela = null;
-        for (Table table : this.tables) {
+        for (Table table : DatabaseTest.tables) {
             if (table.getName().equals("item")) {
                 tabela = table;
                 break;
