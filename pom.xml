@@ -19,7 +19,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.brunocvcunha.dbparser</groupId>
-	<artifactId>dbparser</artifactId>
+	<artifactId>dbparser4gl</artifactId>
 	<packaging>jar</packaging>
 	<name>Progress Database Parser</name>
 	<description>Progress Database Parser</description>

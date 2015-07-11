@@ -1,0 +1,371 @@
+ADD TABLE "tests-log-acesso"
+  AREA "Schema Area"
+  LABEL "Log TESTS"
+  DESCRIPTION "Log TESTS"
+  DUMP-NAME "tests-log-acesso"
+
+ADD FIELD "cod_usuar" OF "tests-log-acesso" AS character 
+  DESCRIPTION "User"
+  FORMAT "x(12)"
+  INITIAL ""
+  LABEL "User"
+  POSITION 2
+  MAX-WIDTH 24
+  COLUMN-LABEL "User"
+  HELP "User"
+  ORDER 11
+
+ADD FIELD "data" OF "tests-log-acesso" AS date 
+  DESCRIPTION "Data"
+  FORMAT "99/99/9999"
+  INITIAL ?
+  LABEL "Data"
+  POSITION 3
+  MAX-WIDTH 4
+  COLUMN-LABEL "Data"
+  HELP "Data"
+  ORDER 20
+
+ADD FIELD "hora" OF "tests-log-acesso" AS character 
+  DESCRIPTION "Hora"
+  FORMAT "x(8)"
+  INITIAL ""
+  LABEL "Hora"
+  POSITION 4
+  MAX-WIDTH 16
+  COLUMN-LABEL "Hora"
+  HELP "Hora"
+  ORDER 30
+
+ADD FIELD "token" OF "tests-log-acesso" AS character 
+  DESCRIPTION "Token"
+  FORMAT "x(24)"
+  INITIAL ""
+  LABEL "Token"
+  POSITION 12
+  MAX-WIDTH 24
+  COLUMN-LABEL "Token"
+  HELP "Token"
+  ORDER 111
+
+ADD FIELD "msg_erro" OF "tests-log-acesso" AS character 
+  DESCRIPTION "Msg Erro"
+  FORMAT "x(12)"
+  INITIAL ""
+  LABEL "Mensagem Erro"
+  POSITION 13
+  MAX-WIDTH 24
+  COLUMN-LABEL "Msg Erro"
+  HELP "Tipo Erro"
+  ORDER 120
+
+ADD FIELD "liberado" OF "tests-log-acesso" AS logical 
+  DESCRIPTION "Liberado"
+  FORMAT "yes/no"
+  INITIAL "no"
+  LABEL "Liberado"
+  POSITION 14
+  MAX-WIDTH 1
+  COLUMN-LABEL "Multi"
+  HELP "Liberado"
+  ORDER 10
+
+ADD FIELD "cod_erro" OF "tests-log-acesso" AS character 
+  DESCRIPTION "Cod Erro"
+  FORMAT "x(12)"
+  INITIAL ""
+  LABEL "Codigo Erro"
+  POSITION 15
+  MAX-WIDTH 24
+  COLUMN-LABEL "Cod Erro"
+  HELP "Codigo Erro"
+  ORDER 110
+
+ADD FIELD "ip-acesso" OF "tests-log-acesso" AS character 
+  DESCRIPTION "IP Acesso"
+  FORMAT "x(36)"
+  INITIAL ""
+  LABEL "IP Acesso"
+  POSITION 16
+  MAX-WIDTH 36
+  COLUMN-LABEL "IP Acesso"
+  HELP "IP Acesso"
+  ORDER 120
+  
+ADD INDEX "log" ON "tests-log-acesso" 
+  AREA "Schema Area"
+  PRIMARY
+  DESCRIPTION "Log"
+  INDEX-FIELD "cod_usuar" ASCENDING 
+  INDEX-FIELD "data" ASCENDING 
+  INDEX-FIELD "hora" ASCENDING 
+
+ADD TABLE "tests-log-analise"
+  AREA "Schema Area"
+  LABEL "Log TESTS"
+  DESCRIPTION "Log TESTS"
+  DUMP-NAME "tests-log-analise"
+
+ADD FIELD "cod_usuar" OF "tests-log-analise" AS character 
+  DESCRIPTION "User"
+  FORMAT "x(12)"
+  INITIAL ""
+  LABEL "User"
+  POSITION 2
+  MAX-WIDTH 24
+  COLUMN-LABEL "User"
+  HELP "User"
+  ORDER 10
+
+ADD FIELD "data" OF "tests-log-analise" AS date 
+  DESCRIPTION "Data"
+  FORMAT "99/99/9999"
+  INITIAL ?
+  LABEL "Data"
+  POSITION 3
+  MAX-WIDTH 4
+  COLUMN-LABEL "Data"
+  HELP "Data"
+  ORDER 20
+
+ADD FIELD "hora" OF "tests-log-analise" AS character 
+  DESCRIPTION "Hora"
+  FORMAT "x(8)"
+  INITIAL ""
+  LABEL "Hora"
+  POSITION 4
+  MAX-WIDTH 16
+  COLUMN-LABEL "Hora"
+  HELP "Hora"
+  ORDER 30
+
+ADD FIELD "nr-trans" OF "tests-log-analise" AS integer 
+  DESCRIPTION "Transa‡Æo"
+  FORMAT ">>>>>>>>9"
+  INITIAL "0"
+  LABEL "Transa‡Æo"
+  POSITION 5
+  MAX-WIDTH 4
+  COLUMN-LABEL "Nr Trans"
+  HELP "Transa‡Æo"
+  ORDER 40
+
+ADD FIELD "seq_log" OF "tests-log-analise" AS integer 
+  DESCRIPTION "Sequˆncia"
+  FORMAT ">>>9"
+  INITIAL "0"
+  LABEL "Sequˆncia"
+  POSITION 6
+  MAX-WIDTH 4
+  COLUMN-LABEL "Seq"
+  HELP "Sequˆncia"
+  ORDER 50
+
+ADD FIELD "msg_log" OF "tests-log-analise" AS character 
+  DESCRIPTION "Mensagem"
+  FORMAT "x(2000)"
+  INITIAL ""
+  LABEL "Mensagem"
+  POSITION 7
+  MAX-WIDTH 4000
+  COLUMN-LABEL "Mensagem"
+  HELP "Mensagem"
+  ORDER 60
+
+ADD FIELD "ep-codigo" OF "tests-log-analise" AS integer 
+  DESCRIPTION "Empresa"
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Empresa"
+  POSITION 8
+  MAX-WIDTH 4
+  COLUMN-LABEL "Emp"
+  HELP "Empresa"
+  ORDER 70
+
+ADD FIELD "cod-estabel" OF "tests-log-analise" AS character 
+  DESCRIPTION "Estabelecimento"
+  FORMAT "x(3)"
+  INITIAL ""
+  LABEL "Estabelecimento"
+  POSITION 9
+  MAX-WIDTH 6
+  COLUMN-LABEL "Estab"
+  HELP "Estabelecimento"
+  ORDER 80
+
+ADD FIELD "cod-tip-doc" OF "tests-log-analise" AS integer 
+  DESCRIPTION "Documento"
+  FORMAT ">>9"
+  INITIAL "0"
+  LABEL "Documento"
+  POSITION 10
+  MAX-WIDTH 4
+  COLUMN-LABEL "Docto"
+  HELP "Documento"
+  ORDER 90
+
+ADD FIELD "chave-doc" OF "tests-log-analise" AS character 
+  DESCRIPTION "Chave"
+  FORMAT "x(40)"
+  INITIAL ""
+  LABEL "Chave"
+  POSITION 11
+  MAX-WIDTH 80
+  COLUMN-LABEL "Chave"
+  HELP "Chave"
+  ORDER 100
+
+ADD FIELD "origem_erro" OF "tests-log-analise" AS character 
+  DESCRIPTION "Origem Erro"
+  FORMAT "x(12)"
+  INITIAL ""
+  LABEL "Origem Erro"
+  POSITION 12
+  MAX-WIDTH 24
+  COLUMN-LABEL "Origem Erro"
+  HELP "Origem Erro"
+  ORDER 110
+
+ADD FIELD "tipo_erro" OF "tests-log-analise" AS character 
+  DESCRIPTION "Tipo Erro"
+  FORMAT "x(12)"
+  INITIAL ""
+  LABEL "Tipo Erro"
+  POSITION 13
+  MAX-WIDTH 24
+  COLUMN-LABEL "Tipo Erro"
+  HELP "Tipo Erro"
+  ORDER 120
+
+ADD FIELD "ip-acesso" OF "tests-log-analise" AS character 
+  DESCRIPTION "IP Acesso"
+  FORMAT "x(36)"
+  INITIAL ""
+  LABEL "IP Acesso"
+  POSITION 14
+  MAX-WIDTH 36
+  COLUMN-LABEL "IP Acesso"
+  HELP "IP Acesso"
+  ORDER 130
+  
+ADD INDEX "log" ON "tests-log-analise" 
+  AREA "Schema Area"
+  PRIMARY
+  DESCRIPTION "Log"
+  INDEX-FIELD "cod_usuar" ASCENDING 
+  INDEX-FIELD "nr-trans" ASCENDING 
+  INDEX-FIELD "seq_log" ASCENDING 
+
+ADD TABLE "tests-param"
+  AREA "Schema Area"
+  LABEL "Parƒmetros TESTS"
+  DESCRIPTION "Parƒmetros TESTS"
+  DUMP-NAME "tests-param"
+
+ADD FIELD "rejeicoes" OF "tests-param" AS logical 
+  DESCRIPTION "Exibe Rejeicoes"
+  FORMAT "yes/no"
+  INITIAL "no"
+  LABEL "Exibe Rejeicoes"
+  POSITION 2
+  MAX-WIDTH 1
+  COLUMN-LABEL "Rejeicoes"
+  HELP "Exibe Rejeicoes"
+  ORDER 10
+
+ADD TABLE "tests-usuario"
+  AREA "Schema Area"
+  LABEL "User TESTS"
+  DESCRIPTION "User TESTS"
+  DUMP-NAME "tests-usuario"
+
+ADD FIELD "cod_usuar" OF "tests-usuario" AS character 
+  DESCRIPTION "User"
+  FORMAT "x(12)"
+  INITIAL ""
+  LABEL "User"
+  POSITION 2
+  MAX-WIDTH 24
+  COLUMN-LABEL "User"
+  HELP "User"
+  ORDER 10
+
+ADD FIELD "modo_popup" OF "tests-usuario" AS logical 
+  DESCRIPTION "Modo Popup"
+  FORMAT "yes/no"
+  INITIAL "no"
+  LABEL "Modo Popup"
+  POSITION 3
+  MAX-WIDTH 40
+  COLUMN-LABEL "Modo Popup"
+  HELP "Modo Popup"
+  ORDER 20
+
+ADD FIELD "filtro_lotacao" OF "tests-usuario" AS character 
+  DESCRIPTION "Lotacao"
+  FORMAT "x(25)"
+  INITIAL ""
+  LABEL "Lotacao"
+  POSITION 4
+  MAX-WIDTH 50
+  COLUMN-LABEL "Lotacao"
+  HELP "Lotacao"
+  ORDER 30
+
+ADD FIELD "filtro_data_inicio" OF "tests-usuario" AS date 
+  DESCRIPTION "Data Inicio"
+  FORMAT "99/99/9999"
+  INITIAL ?
+  LABEL "Data Inicio"
+  POSITION 5
+  MAX-WIDTH 50
+  COLUMN-LABEL "Data Inicio"
+  HELP "Data Inicio"
+  ORDER 40
+
+ADD FIELD "filtro_data_fim" OF "tests-usuario" AS date 
+  DESCRIPTION "Data Fim"
+  FORMAT "99/99/9999"
+  INITIAL ?
+  LABEL "Data Fim"
+  POSITION 6
+  MAX-WIDTH 50
+  COLUMN-LABEL "Data Fim"
+  HELP "Data Fim"
+  ORDER 50
+
+ADD FIELD "filtro_usuario" OF "tests-usuario" AS character 
+  DESCRIPTION "Filtro Usuario"
+  FORMAT "x(16)"
+  INITIAL ""
+  LABEL "Filtro Usuario"
+  POSITION 7
+  MAX-WIDTH 50
+  COLUMN-LABEL "Filtro Usuario"
+  HELP "Filtro Usuario"
+  ORDER 60
+
+ADD FIELD "filtro_estabelecimento" OF "tests-usuario" AS character 
+  DESCRIPTION "Filtro Estabelecimento"
+  FORMAT "x(16)"
+  INITIAL ""
+  LABEL "Filtro Estabelecimento"
+  POSITION 8
+  MAX-WIDTH 50
+  COLUMN-LABEL "Filtro Estabelecimento"
+  HELP "Filtro Estabelecimento"
+  ORDER 70
+  
+ADD INDEX "usuario" ON "tests-usuario" 
+  AREA "Schema Area"
+  UNIQUE
+  PRIMARY
+  DESCRIPTION "User"
+  INDEX-FIELD "cod_usuar" ASCENDING 
+
+.
+PSC
+cpstream=ibm850
+.
+0000006903

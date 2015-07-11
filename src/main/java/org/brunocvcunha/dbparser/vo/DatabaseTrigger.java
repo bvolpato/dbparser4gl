@@ -13,26 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.brunocunha.dbparser.vo;
+package org.brunocvcunha.dbparser.vo;
 
-public class IndexField {
+public class DatabaseTrigger {
 
-    private String name;
-    private boolean ascending;
+  private String type;
+  private String procedure;
 
-    public String getName() {
-        return name;
-    }
+  public String getType() {
+    return type;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setType(String type) {
+    this.type = type;
+  }
 
-    public boolean isAscending() {
-        return ascending;
-    }
+  public String getProcedure() {
+    return procedure;
+  }
 
-    public void setAscending(boolean ascending) {
-        this.ascending = ascending;
-    }
+  public void setProcedure(String procedure) {
+    this.procedure = procedure;
+  }
+
+  @Override
+  public String toString() {
+    return "DatabaseTrigger [type=" + type + ", procedure=" + procedure + "]";
+  }
+  
+  
 }
