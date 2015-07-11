@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.brunocvcunha.dbparser.tests;
+package org.brunocvcunha.dbparser4gl.tests;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Collection;
 
-import org.brunocvcunha.dbparser.GetDefaultTables;
-import org.brunocvcunha.dbparser.vo.Table;
+import org.brunocvcunha.dbparser4gl.GetDefaultTables;
+import org.brunocvcunha.dbparser4gl.vo.Table;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;

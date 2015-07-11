@@ -13,32 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.brunocvcunha.dbparser.vo;
+package org.brunocvcunha.dbparser4gl.vo;
 
-public class DatabaseTrigger {
+import java.util.ArrayList;
+import java.util.List;
 
-  private String type;
-  private String procedure;
+public class Database {
 
-  public String getType() {
-    return type;
+  private String name;
+  private List<Table> tables = new ArrayList<Table>();
+
+  public String getName() {
+    return name;
   }
 
-  public void setType(String type) {
-    this.type = type;
+  public void setName(String name) {
+    this.name = name;
   }
 
-  public String getProcedure() {
-    return procedure;
+  public List<Table> getTables() {
+    return tables;
   }
 
-  public void setProcedure(String procedure) {
-    this.procedure = procedure;
+  public void setTables(List<Table> tables) {
+    this.tables = tables;
   }
 
   @Override
   public String toString() {
-    return "DatabaseTrigger [type=" + type + ", procedure=" + procedure + "]";
+    return "Database [name=" + name + ", tables=" + tables + "]";
   }
   
   
