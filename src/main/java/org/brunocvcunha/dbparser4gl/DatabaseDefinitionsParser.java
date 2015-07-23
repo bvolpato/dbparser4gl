@@ -40,13 +40,13 @@ import org.brunocvcunha.dbparser4gl.vo.Table;
  * @author Bruno Candido Volpato da Cunha
  * 
  */
-public class DatabaseParser {
+public class DatabaseDefinitionsParser {
 
-  private static Logger log = Logger.getLogger(DatabaseParser.class);
+  private static Logger log = Logger.getLogger(DatabaseDefinitionsParser.class);
 
   private List<Table> tables;
 
-  public DatabaseParser() {
+  public DatabaseDefinitionsParser() {
     this.tables = new ArrayList<Table>();
   }
 

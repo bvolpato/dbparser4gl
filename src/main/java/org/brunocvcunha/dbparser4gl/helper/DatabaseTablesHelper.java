@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.brunocvcunha.dbparser4gl;
+package org.brunocvcunha.dbparser4gl.helper;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -27,6 +27,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import org.apache.log4j.Logger;
+import org.brunocvcunha.dbparser4gl.DatabaseDefinitionsParser;
 import org.brunocvcunha.dbparser4gl.vo.Field;
 import org.brunocvcunha.dbparser4gl.vo.Table;
 
@@ -37,11 +38,11 @@ import org.brunocvcunha.dbparser4gl.vo.Table;
  * @author Bruno Candido Volpato da Cunha
  * 
  */
-public class GetDefaultTables {
+public class DatabaseTablesHelper {
 
   private static List<Table> defaultTablesInstance;
 
-  private static Logger log = Logger.getLogger(GetDefaultTables.class);
+  private static Logger log = Logger.getLogger(DatabaseTablesHelper.class);
 
   private static final boolean IS_VERBOSE = true;
 
@@ -54,10 +55,10 @@ public class GetDefaultTables {
   private static final String HCM_DEFAULT = BASE_DIR + "\\HCM\\12.1.2";
   private static final String METADADOS_DEFAULT = BASE_DIR + "\\CRM\\12.1.2";
 
-  private GetDefaultTables() {}
+  private DatabaseTablesHelper() {}
 
   public static List<Table> listTables() {
-    synchronized (GetDefaultTables.class) {
+    synchronized (DatabaseTablesHelper.class) {
       if (defaultTablesInstance == null) {
         defaultTablesInstance =
             listTables(new File[] {new File(EAI_DEFAULT), new File(EMS2_DEFAULT),
@@ -74,13 +75,13 @@ public class GetDefaultTables {
   }
 
   public static List<Table> listTables(File f) throws FileNotFoundException {
-    DatabaseParser parser = new DatabaseParser();
+    DatabaseDefinitionsParser parser = new DatabaseDefinitionsParser();
     parser.recursiveParser(f);
     return parser.getTables();
   }
 
   public static List<Table> listTables(InputStream is, String database) {
-    DatabaseParser parser = new DatabaseParser();
+    DatabaseDefinitionsParser parser = new DatabaseDefinitionsParser();
     parser.parseDefinitions(is, database);
     return parser.getTables();
   }
@@ -200,7 +201,7 @@ class DatabaseParserThread extends Thread {
   }
 
   public void run() {
-    DatabaseParser parser = new DatabaseParser();
+    DatabaseDefinitionsParser parser = new DatabaseDefinitionsParser();
     try {
       parser.recursiveParser(file);
     } catch (FileNotFoundException e) {

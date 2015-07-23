@@ -20,26 +20,26 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Collection;
 
-import org.brunocvcunha.dbparser4gl.GetDefaultTables;
+import org.brunocvcunha.dbparser4gl.helper.DatabaseTablesHelper;
 import org.brunocvcunha.dbparser4gl.vo.Table;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * Default tests.
+ * Default definition tests.
  *
  * @author Bruno Candido Volpato da Cunha
  *
  */
-public class DatabaseTest {
+public class DatabaseDefinitionTest {
 
   private static Collection<Table> tables;
 
   @BeforeClass
   public static void setUp() throws Exception {
     tables =
-        GetDefaultTables.listTables(DatabaseTest.class.getResourceAsStream("/tests.df"), "tests");
+        DatabaseTablesHelper.listTables(DatabaseDefinitionTest.class.getResourceAsStream("/tests.df"), "tests");
   }
 
   @AfterClass
@@ -62,7 +62,7 @@ public class DatabaseTest {
   @Test
   public void testExistence() {
     Table accessLogTable = null;
-    for (Table table : DatabaseTest.tables) {
+    for (Table table : DatabaseDefinitionTest.tables) {
       if (table.getName().equals("tests-log-acesso")) {
         accessLogTable = table;
         break;
