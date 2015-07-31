@@ -92,7 +92,7 @@ public class DatabaseDefinitionsParser {
           tables.add(table);
 
           String childrenStatement;
-          while (!(childrenStatement = statements[++x]).contains("ADD TABLE")) {
+          while (++x < statements.length && !(childrenStatement = statements[x]).contains("ADD TABLE")) {
 
             if (childrenStatement.contains("cpstream=")) {
               return;
