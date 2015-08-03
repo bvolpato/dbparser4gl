@@ -18,23 +18,15 @@ package org.brunocvcunha.dbparser4gl;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.TreeMap;
 import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
-import org.brunocvcunha.dbparser4gl.vo.Database;
-import org.brunocvcunha.dbparser4gl.vo.DatabaseTrigger;
-import org.brunocvcunha.dbparser4gl.vo.Field;
-import org.brunocvcunha.dbparser4gl.vo.Index;
-import org.brunocvcunha.dbparser4gl.vo.Table;
 
 
 /**
