@@ -46,14 +46,14 @@ public class DatabaseTablesHelper {
 
   private static final boolean IS_VERBOSE = true;
 
-  private static final String BASE_DIR = "\\\\TOUROS\\DFS";
-  private static final String EAI_DEFAULT = BASE_DIR + "\\EAI\\12.1.2";
-  private static final String EMS2_DEFAULT = BASE_DIR + "\\EMS2\\12.1.2";
-  private static final String EMS5_DEFAULT = BASE_DIR + "\\EMS5\\12.1.2";
-  private static final String FND_DEFAULT = BASE_DIR + "\\Foundation\\12.1.2";
-  private static final String GP_DEFAULT = BASE_DIR + "\\GP\\12.1.2";
-  private static final String HCM_DEFAULT = BASE_DIR + "\\HCM\\12.1.2";
-  private static final String METADADOS_DEFAULT = BASE_DIR + "\\CRM\\12.1.2";
+  private static final String BASE_DIR = "\\\\TOUROS.jv01.local\\DFS";
+  private static final String EAI_DEFAULT = BASE_DIR + "\\EAI\\12.1.3";
+  private static final String EMS2_DEFAULT = BASE_DIR + "\\EMS2\\12.1.3";
+  private static final String EMS5_DEFAULT = BASE_DIR + "\\EMS5\\12.1.3";
+  private static final String FND_DEFAULT = BASE_DIR + "\\Foundation\\12.1.3";
+  private static final String GP_DEFAULT = BASE_DIR + "\\GP\\12.1.3";
+  private static final String HCM_DEFAULT = BASE_DIR + "\\HCM\\12.1.3";
+  private static final String METADADOS_DEFAULT = BASE_DIR + "\\CRM\\12.1.3";
 
   private DatabaseTablesHelper() {}
 
