@@ -39,7 +39,7 @@ import org.apache.log4j.Logger;
 public class DatabaseDataParser {
 
   private static final String NOT_QUOTE_OR_SPACES = "[^\"\\s]+";
-  private static final String QUOTED_STRING = "\"(\\\\.|[^\\\\\"])*\"";
+  private static final String QUOTED_STRING = "\"(?:\"\"|\\\\.|[^\"\\\\])*\"";
   private static final String DELIMITER = "(" + NOT_QUOTE_OR_SPACES + "|" + QUOTED_STRING + ")";
   private static final Pattern COMPILED_DELIMITER = Pattern.compile(DELIMITER);
   
@@ -68,7 +68,7 @@ public class DatabaseDataParser {
           break reading;
         }
 
-        lineMap.put(columns[col], found);
+        lineMap.put(columns[col], normalizeFound(found));
       }
 
       records.add(lineMap);
@@ -78,5 +78,18 @@ public class DatabaseDataParser {
 
 
     return records;
+  }
+
+  private static String normalizeFound(String found) {
+    if (found.length() < 2 || !found.startsWith("\"") || !found.endsWith("\"")) {
+      return found;
+    }
+
+    String withoutQuotes = found.substring(1, found.length() - 1);
+    if (!withoutQuotes.contains("\"\"")) {
+      return found;
+    }
+
+    return withoutQuotes.replace("\"\"", "\"");
   }
 }
